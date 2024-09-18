@@ -2,10 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Category } from 'src/entity/category.entity';
 import { Repository } from 'typeorm';
-import { GenericServicev2 } from './genericv2.service';
+import { GenericService } from './generic.service';
 
 @Injectable()
-export class CategoryService extends GenericServicev2<Category> {
+export class CategoryService extends GenericService<Category> {
   constructor(
     @InjectRepository(Category)
     private readonly categoryRepository: Repository<Category>,
@@ -30,5 +30,8 @@ export class CategoryService extends GenericServicev2<Category> {
     }
 
     return this.categoryRepository.save(category);
+    // return plainToInstance(CategoryDto, result, {
+    //   excludeExtraneousValues: true,
+    // });
   }
 }

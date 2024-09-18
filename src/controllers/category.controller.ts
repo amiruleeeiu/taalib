@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import {
   ApiBody,
   ApiOperation,
@@ -9,6 +18,7 @@ import {
 import { CategoryDto } from 'src/dto/category.dto';
 import { Category } from 'src/entity/category.entity';
 import { CategoryService } from 'src/services/category.service';
+import { MapToDto } from 'src/util/mat-to-dto.utils';
 import { CreateCategoryDto } from './../dto/create-category.dto';
 
 @ApiTags('categories')
@@ -18,11 +28,13 @@ export class CategoryController {
 
   @Post()
   @ApiOperation({ summary: 'Create a new category' })
+  @ApiBody({ type: CreateCategoryDto })
   @ApiResponse({
     status: 201,
-    description: 'The category has been successfully created.',
+    description: 'Category created successfully',
     type: Category,
   })
+  @HttpCode(HttpStatus.CREATED)
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   async createCategory(@Body() categoryDto: CreateCategoryDto) {
     const { title, description, parentId } = categoryDto;
@@ -30,29 +42,29 @@ export class CategoryController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'Get all categories' })
+  @ApiOperation({ summary: 'Retrieve all categories' })
   @ApiResponse({
     status: 200,
-    description: 'list of categories',
+    description: 'List of categories',
     type: [Category],
   })
   async findAllCategories(): Promise<CategoryDto[]> {
-    return this.categoryService.findAll(CategoryDto, ['parent', 'children']);
-  }
-
-  @Get(':id')
-  @ApiOperation({ summary: 'Get a category by ID' })
-  @ApiResponse({
-    status: 200,
-    description: 'The category has been successfully retrieved.',
-    type: CategoryDto, // Use CategoryDto instead of [Category] for a single item
-  })
-  @ApiResponse({ status: 404, description: 'Category not found' })
-  async getCategoryById(@Param('id') id: string) {
-    return this.categoryService.findOne(CategoryDto, id, [
+    const categories = await this.categoryService.findAll([
       'parent',
       'children',
     ]);
+
+    return MapToDto(CategoryDto, categories) as CategoryDto[];
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Retrieve a single category by ID' })
+  @ApiParam({ name: 'id', description: 'Category ID' })
+  @ApiResponse({ status: 200, description: 'Category found', type: Category })
+  @ApiResponse({ status: 404, description: 'Category not found' })
+  async getCategoryById(@Param('id') id: string): Promise<CategoryDto> {
+    const category = this.categoryService.findOne(id, ['parent', 'children']);
+    return MapToDto(CategoryDto, category) as CategoryDto;
   }
 
   @Put(':id')
@@ -66,7 +78,11 @@ export class CategoryController {
   })
   @ApiResponse({ status: 404, description: 'Category not found' })
   @ApiResponse({ status: 400, description: 'Invalid input data' })
-  async updateCategory(@Param('id') id: string, @Body() category: Category) {
-    return this.categoryService.update(CategoryDto, id, category);
+  async updateCategory(
+    @Param('id') id: string,
+    @Body() category: Category,
+  ): Promise<CategoryDto> {
+    const categoryResponse = this.categoryService.update(id, category);
+    return MapToDto(CategoryDto, categoryResponse) as CategoryDto;
   }
 }

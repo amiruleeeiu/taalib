@@ -6,13 +6,13 @@ import { User } from './user.entity';
 @Entity()
 export class Task extends AbstractBaseEntity {
   @Column()
-  startDate: Date;
-
-  @Column()
   title: string;
 
   @Column()
   description: string;
+
+  @Column()
+  startDate: Date;
 
   @Column()
   endDate: Date;
@@ -32,4 +32,17 @@ export class Task extends AbstractBaseEntity {
 
   @ManyToOne(() => User, (user) => user.noTos)
   noTo: User;
+
+  //reference json
 }
+
+// {
+//   bookId:'',
+//   chapterFrom:10,
+//   chapterTo:20,
+//   pageNoFrom:5,
+//   pageNoTo:7,
+//   startFrom:1,
+//   startTo:2
+
+// }
