@@ -1,15 +1,18 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
-import { AbstractBaseEntity } from './abstract-base.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Quiz } from './quiz.entity';
-import { User } from './user.entity';
 
 @Entity()
-export class QuizParticipant extends AbstractBaseEntity {
+export class QuizParticipant {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
   @Column()
   optionSelected: string;
 
-  @ManyToOne(() => User, (user) => user.QuizParticipants)
-  user: User;
+  // @Column({ default: false })
+  // isRight: boolean;
+
+  // @ManyToOne(() => User, (user) => user.QuizParticipants)
+  // user: User;
 
   @ManyToOne(() => Quiz, (quiz) => quiz.quizParticipant)
   quiz: Quiz;

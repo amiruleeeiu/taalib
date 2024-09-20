@@ -1,8 +1,9 @@
-import { Column, Entity } from 'typeorm';
-import { AbstractBaseEntity } from './abstract-base.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class District extends AbstractBaseEntity {
+export class District {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
   @Column()
   name: string;
 }

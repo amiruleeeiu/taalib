@@ -1,21 +1,21 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
-import { AbstractBaseEntity } from './abstract-base.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Ask } from './ask.entites';
-import { User } from './user.entity';
 
 @Entity()
-export class AskReply extends AbstractBaseEntity {
+export class AskReply {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
   @Column()
   reply: string;
 
   @Column({ default: false })
-  is_ans: boolean;
+  isAns: boolean;
 
   @Column({ default: true })
   status: boolean;
 
-  @ManyToOne(() => User, (user) => user.askedReplies)
-  replyBy: User;
+  // @ManyToOne(() => User, (user) => user.askedReplies)
+  // replyBy: User;
 
   @ManyToOne(() => Ask, (asked) => asked.askReplies)
   ask: Ask;

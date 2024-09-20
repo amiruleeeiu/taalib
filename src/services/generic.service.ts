@@ -1,5 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { DeleteResult, FindOptionsWhere, Repository } from 'typeorm';
+import {
+  DeleteResult,
+  FindOptionsWhere,
+  Repository,
+  UpdateResult,
+} from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 // Define a base entity interface with an id property
@@ -40,7 +45,15 @@ export class GenericService<T extends BaseEntity> {
     return this.findOne(id);
   }
 
-  async delete(id: number | string): Promise<DeleteResult> {
+  async delete(id: string): Promise<DeleteResult> {
     return this.repository.delete(id);
+  }
+
+  async softDelete(id: number): Promise<DeleteResult> {
+    return await this.repository.softDelete(id);
+  }
+
+  async restore(id: number): Promise<UpdateResult> {
+    return await this.repository.restore(id);
   }
 }

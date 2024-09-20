@@ -1,10 +1,12 @@
 import {
   Column,
   CreateDateColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
   VersionColumn,
 } from 'typeorm';
+import { User } from './user.entity'; // Adjust the path accordingly
 
 export abstract class AbstractBaseEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -13,19 +15,18 @@ export abstract class AbstractBaseEntity {
   @CreateDateColumn({ type: 'timestamptz' })
   createdAt: Date;
 
-  @Column({ nullable: true })
-  createdBy: string;
-
-  @UpdateDateColumn({
-    type: 'timestamptz',
-  })
+  @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
-
-  @Column({ nullable: true })
-  updatedBy: string;
 
   @VersionColumn()
   version: number;
 
-  //deleted boolean
+  @ManyToOne(() => User, { nullable: true })
+  createdBy: User; // Lazy loading to avoid circular dependency
+
+  @ManyToOne(() => User, { nullable: true })
+  updatedBy: User; // Lazy loading to avoid circular dependency
+
+  @Column({ default: false })
+  isDeleted: boolean;
 }

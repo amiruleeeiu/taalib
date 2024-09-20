@@ -1,52 +1,57 @@
-import { Column, Entity, OneToMany } from 'typeorm';
-import { AbstractBaseEntity } from './abstract-base.entity';
-import { AskReply } from './ask-reply.entity';
-import { Ask } from './ask.entites';
-import { Discussion } from './discussion.entity';
-import { Exam } from './exam.entity';
-import { Question } from './question.entity';
-import { QuizParticipant } from './quiz-participants.entity';
-import { Quiz } from './quiz.entity';
-import { Task } from './task.entity';
-import { UserExam } from './user-exam.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class User extends AbstractBaseEntity {
+export class User {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
+
   @Column({ length: 100 })
   name: string;
 
   @Column({ length: 100, unique: true })
   phone: string;
 
-  @OneToMany(() => Ask, (ask) => ask.user)
-  asks: Ask[];
+  @Column({ length: 100, unique: true })
+  email: string;
 
-  @OneToMany(() => Discussion, (discussion) => discussion.user)
-  discussions: Discussion[];
+  @Column({ length: 100, nullable: true })
+  occupation: string;
 
-  @OneToMany(() => Question, (question) => question.addedBy)
-  questions: Question[];
+  @Column({ length: 100, nullable: true })
+  location: string;
 
-  @OneToMany(() => Quiz, (quiz) => quiz.user)
-  quizs: Quiz[];
+  @Column({ length: 100, nullable: true })
+  password: string;
 
-  @OneToMany(() => QuizParticipant, (quizParticipant) => quizParticipant.user)
-  QuizParticipants: QuizParticipant[];
+  // @OneToMany(() => Category, (ask) => ask.createdBy)
+  // categories: Category[];
 
-  @OneToMany(() => Task, (task) => task.noFrom)
-  noFroms: Task[];
+  // @OneToMany(() => Discussion, (discussion) => discussion.user)
+  // discussions: Discussion[];
 
-  @OneToMany(() => Task, (task) => task.noTo)
-  noTos: Task[];
+  // @OneToMany(() => Question, (question) => question.addedBy)
+  // questions: Question[];
 
-  @OneToMany(() => AskReply, (askedReply) => askedReply.reply)
-  askedReplies: AskReply[];
+  // @OneToMany(() => Quiz, (quiz) => quiz.user)
+  // quizs: Quiz[];
 
-  @OneToMany(() => Exam, (exam) => exam.setBy)
-  exams: Exam[];
+  // @OneToMany(() => QuizParticipant, (quizParticipant) => quizParticipant.user)
+  // QuizParticipants: QuizParticipant[];
 
-  @OneToMany(() => UserExam, (userExam) => userExam.user)
-  userExams: UserExam[];
+  // @OneToMany(() => Task, (task) => task.createdBy)
+  // tasks: Task[];
+
+  // @OneToMany(() => Task, (task) => task.noTo)
+  // noTos: Task[];
+
+  // @OneToMany(() => AskReply, (askedReply) => askedReply.reply)
+  // askedReplies: AskReply[];
+
+  // @OneToMany(() => Exam, (exam) => exam.setBy)
+  // exams: Exam[];
+
+  // @OneToMany(() => UserExam, (userExam) => userExam.user)
+  // userExams: UserExam[];
 
   @Column({ type: 'enum', enum: ['male', 'female'], default: 'male' })
   gender: 'male' | 'female';

@@ -1,10 +1,10 @@
-import { Column, Entity, ManyToOne, OneToMany } from 'typeorm';
-import { AbstractBaseEntity } from './abstract-base.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { AskReply } from './ask-reply.entity';
-import { User } from './user.entity';
 
 @Entity()
-export class Ask extends AbstractBaseEntity {
+export class Ask {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
   @Column()
   text: string;
 
@@ -14,8 +14,8 @@ export class Ask extends AbstractBaseEntity {
   @Column({ default: 0 })
   react2: number;
 
-  @ManyToOne(() => User, (user) => user.asks)
-  user: User;
+  // @ManyToOne(() => User, (user) => user.asks)
+  // user: User;
 
   @OneToMany(() => AskReply, (askedReply) => askedReply.ask)
   askReplies: AskReply[];

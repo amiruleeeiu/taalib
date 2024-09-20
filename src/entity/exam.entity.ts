@@ -4,16 +4,15 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
-  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { AbstractBaseEntity } from './abstract-base.entity'; // Fixed the file naming convention
 import { Category } from './category.entity';
 import { Question } from './question.entity';
-import { UserExam } from './user-exam.entity';
-import { User } from './user.entity';
 
 @Entity()
-export class Exam extends AbstractBaseEntity {
+export class Exam {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
   @Column()
   examDate: Date; // Changed to camelCase
 
@@ -35,11 +34,11 @@ export class Exam extends AbstractBaseEntity {
   @Column({ default: false })
   isModified: boolean; // Changed to camelCase
 
-  @ManyToOne(() => User, (user) => user.exams)
-  setBy: User; // Changed to camelCase
+  // @ManyToOne(() => User, (user) => user.exams)
+  // setBy: User;
 
-  @OneToMany(() => UserExam, (userExam) => userExam.user)
-  userExams: UserExam[]; // Changed to camelCase
+  // @OneToMany(() => UserExam, (userExam) => userExam.user)
+  // userExams: UserExam[];
 
   @ManyToOne(() => Category, (category) => category.exams)
   topic: Category;

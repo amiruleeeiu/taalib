@@ -1,11 +1,11 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
-import { AbstractBaseEntity } from './abstract-base.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Category } from './category.entity';
 import { Exam } from './exam.entity';
-import { User } from './user.entity';
 
 @Entity()
-export class Question extends AbstractBaseEntity {
+export class Question {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
   @Column()
   question: string;
 
@@ -46,8 +46,8 @@ export class Question extends AbstractBaseEntity {
   @ManyToOne(() => Category, (category) => category.questions)
   topic: Category;
 
-  @ManyToOne(() => User, (user) => user.questions)
-  addedBy: User;
+  // @ManyToOne(() => User, (user) => user.questions)
+  // addedBy: User;
 
   @ManyToOne(() => Exam, (exam) => exam.questions)
   exams: Exam[];

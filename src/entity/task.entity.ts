@@ -1,7 +1,6 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { AbstractBaseEntity } from './abstract-base.entity';
 import { Category } from './category.entity';
-import { User } from './user.entity';
 
 @Entity()
 export class Task extends AbstractBaseEntity {
@@ -17,21 +16,18 @@ export class Task extends AbstractBaseEntity {
   @Column()
   endDate: Date;
 
+  @Column()
+  reference: string;
+
   @Column({
     type: 'enum',
-    enum: ['PENDING', 'ACCEPTED', 'REJECTED'],
-    default: 'PENDING',
+    enum: ['to_do', 'in_progress', 'done'],
+    default: 'to_do',
   })
-  status: 'PENDING' | 'ACCEPTED' | 'REJECTED';
+  status: string;
 
   @ManyToOne(() => Category, (category) => category.topics)
   topic: Category;
-
-  @ManyToOne(() => User, (user) => user.noFroms)
-  noFrom: User;
-
-  @ManyToOne(() => User, (user) => user.noTos)
-  noTo: User;
 
   //reference json
 }
@@ -44,5 +40,4 @@ export class Task extends AbstractBaseEntity {
 //   pageNoTo:7,
 //   startFrom:1,
 //   startTo:2
-
 // }

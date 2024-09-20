@@ -1,10 +1,9 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
-import { AbstractBaseEntity } from './abstract-base.entity';
-import { Exam } from './exam.entity';
-import { User } from './user.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class UserExam extends AbstractBaseEntity {
+export class UserExam {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
   @Column({ default: 0 })
   score: number;
 
@@ -20,9 +19,9 @@ export class UserExam extends AbstractBaseEntity {
   @Column({ type: 'enum', enum: ['CALCELED', 'SUBMITTED', 'PUBLISHED'] })
   status: 'CALCELED' | 'SUBMITTED' | 'PUBLISHED';
 
-  @ManyToOne(() => User, (user) => user.userExams)
-  user: User;
+  // @ManyToOne(() => User, (user) => user.userExams)
+  // user: User;
 
-  @ManyToOne(() => Exam, (exam) => exam.userExams)
-  exam: Exam;
+  // @ManyToOne(() => Exam, (exam) => exam.userExams)
+  // exam: Exam;
 }

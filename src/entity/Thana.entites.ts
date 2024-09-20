@@ -1,8 +1,9 @@
-import { Column, Entity } from 'typeorm';
-import { AbstractBaseEntity } from './abstract-base.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Thana extends AbstractBaseEntity {
+export class Thana {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
   @Column()
   name: string;
 
