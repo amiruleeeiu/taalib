@@ -4,6 +4,7 @@ export function MapToDto<T>(
   dtoClass: ClassConstructor<T>,
   data: object | object[],
 ): T | T[] {
+  console.log(data);
   if (Array.isArray(data)) {
     return plainToInstance(dtoClass, data, {
       excludeExtraneousValues: true,

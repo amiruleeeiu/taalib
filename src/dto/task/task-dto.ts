@@ -1,6 +1,6 @@
-import { Expose } from 'class-transformer';
-import { CategoryDto } from '../category.dto';
 import { ApiProperty } from '@nestjs/swagger';
+import { Expose, Type } from 'class-transformer';
+import { CategoryDto } from '../category.dto';
 
 export class TaskDto {
   @Expose()
@@ -24,6 +24,8 @@ export class TaskDto {
   @Expose()
   status?: string;
 
+  @Expose()
   @ApiProperty({ type: CategoryDto })
+  @Type(() => CategoryDto)
   topic: CategoryDto;
 }
