@@ -60,7 +60,6 @@ export class TaskController {
   }
 
   @Get(':id')
-  @ApiBody({ type: TaskDto })
   @ApiOperation({ summary: 'Retrieve a single task by ID' })
   @ApiParam({ name: 'id', description: 'Task ID' })
   @ApiResponse({ status: 200, description: 'Task found', type: Task })
