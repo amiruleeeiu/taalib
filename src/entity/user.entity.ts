@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -6,21 +7,45 @@ export class User {
   id: string;
 
   @Column({ length: 100 })
+  @ApiProperty({
+    description: 'The reply of the ask reply',
+    example: 'Ask realy',
+  })
   name: string;
 
   @Column({ length: 100, unique: true })
+  @ApiProperty({
+    description: 'The reply of the ask reply',
+    example: 'Ask realy',
+  })
   phone: string;
 
   @Column({ length: 100, unique: true })
+  @ApiProperty({
+    description: 'The reply of the ask reply',
+    example: 'Ask realy',
+  })
   email: string;
 
   @Column({ length: 100, nullable: true })
+  @ApiProperty({
+    description: 'The reply of the ask reply',
+    example: 'Ask realy',
+  })
   occupation: string;
 
   @Column({ length: 100, nullable: true })
+  @ApiProperty({
+    description: 'The reply of the ask reply',
+    example: 'Ask realy',
+  })
   location: string;
 
   @Column({ length: 100, nullable: true })
+  @ApiProperty({
+    description: 'The reply of the ask reply',
+    example: 'Ask realy',
+  })
   password: string;
 
   // @OneToMany(() => Category, (ask) => ask.createdBy)
@@ -54,8 +79,16 @@ export class User {
   // userExams: UserExam[];
 
   @Column({ type: 'enum', enum: ['male', 'female'], default: 'male' })
+  @ApiProperty({
+    description: 'The reply of the ask reply',
+    example: 'Ask realy',
+  })
   gender: 'male' | 'female';
 
   @Column({ type: 'boolean', default: true })
+  @ApiProperty({
+    description: 'The reply of the ask reply',
+    example: 'Ask realy',
+  })
   isActive: boolean;
 }

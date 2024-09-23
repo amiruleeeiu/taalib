@@ -53,7 +53,7 @@ export class AskController {
     type: [Ask],
   })
   async findAllAsks(): Promise<AskDto[]> {
-    const asks = await this.askService.findAll(['askReplies']);
+    const asks = await this.askService.findAll(['askReplies', 'createdBy']);
 
     // return asks;
     return MapToDto(AskDto, asks) as AskDto[];
@@ -65,7 +65,7 @@ export class AskController {
   @ApiResponse({ status: 200, description: 'Ask found', type: Ask })
   @ApiResponse({ status: 404, description: 'Ask not found' })
   async getAskById(@Param('id') id: string): Promise<AskDto> {
-    const ask = this.askService.findOne(id, ['askReplies']);
+    const ask = this.askService.findOne(id, ['askReplies', 'createdBy']);
     return MapToDto(AskDto, ask) as AskDto;
   }
 

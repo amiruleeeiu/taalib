@@ -1,29 +1,26 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose, Type } from 'class-transformer';
-import { AskReply } from 'src/entity/ask-reply.entity';
-import { AskStatus } from 'src/entity/ask.entites';
+import { AskReaplyStatus } from 'src/entity/ask-reply.entity';
+import { AskDto } from '../ask/ask-dto';
 import { UserDto } from '../user/user-dto';
 
-export class AskDto {
+export class AskReplyDto {
   @Expose()
   id: number;
 
   @Expose()
-  text: string;
+  reply: string;
 
   @Expose()
-  react1: number;
+  isAns: boolean;
 
   @Expose()
-  react2: number;
+  status: AskReaplyStatus;
 
   @Expose()
-  status: AskStatus;
-
-  @Expose()
-  @ApiProperty({ type: AskReply })
-  @Type(() => AskReply)
-  askReplies: AskReply[];
+  @ApiProperty({ type: AskDto })
+  @Type(() => AskDto)
+  ask: AskDto;
 
   @Expose()
   @ApiProperty({ type: UserDto })

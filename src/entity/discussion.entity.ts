@@ -1,14 +1,10 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity } from 'typeorm';
+import { AbstractBaseEntity } from './abstract-base.entity';
 
 @Entity()
-export class Discussion {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+export class Discussion extends AbstractBaseEntity {
   @Column()
   text: string;
-
-  // @ManyToOne(() => User, (user) => user.discussions)
-  // user: User;
 
   @Column({ default: true })
   status: boolean;
