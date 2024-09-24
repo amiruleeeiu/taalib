@@ -16,6 +16,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CreateUserDto } from 'src/dto/user/create-user.dto';
+import { UpdateUserDto } from 'src/dto/user/update-user.dto';
 import { UserDto } from 'src/dto/user/user-dto';
 import { User } from 'src/entity/user.entity';
 import { UserService } from 'src/services/user.service';
@@ -61,7 +62,12 @@ export class UserController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Retrieve a single user by ID' })
-  @ApiParam({ name: 'id', description: 'User ID' })
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'User ID',
+    example: 'f1ed3e49-78fb-4655-b326-f5ae49e9946c',
+  })
   @ApiResponse({ status: 200, description: 'User found', type: User })
   @ApiResponse({ status: 404, description: 'User not found' })
   async getAskById(@Param('id') id: string): Promise<UserDto> {
@@ -71,12 +77,17 @@ export class UserController {
 
   @Put(':id')
   @ApiOperation({ summary: 'Update an existing user' })
-  @ApiParam({ name: 'id', description: 'User ID', type: String })
-  @ApiBody({ type: UserDto }) // This specifies that the request body should conform to the taskDto
+  @ApiParam({
+    name: 'id',
+    required: true,
+    description: 'The user ID',
+    example: 'f1ed3e49-78fb-4655-b326-f5ae49e9946c',
+  })
+  @ApiBody({ type: UpdateUserDto })
   @ApiResponse({
     status: 200,
     description: 'The user has been successfully updated.',
-    type: UserDto, // The response type will also be taskdto
+    type: User,
   })
   @ApiResponse({ status: 404, description: 'User not found' })
   @ApiResponse({ status: 400, description: 'Invalid input data' })

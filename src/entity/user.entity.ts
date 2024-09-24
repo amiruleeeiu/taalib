@@ -9,42 +9,42 @@ export class User {
   @Column({ length: 100 })
   @ApiProperty({
     description: 'The reply of the ask reply',
-    example: 'Ask realy',
+    example: 'Amirul',
   })
   name: string;
 
-  @Column({ length: 100, unique: true })
+  @Column({ length: 100 })
   @ApiProperty({
     description: 'The reply of the ask reply',
-    example: 'Ask realy',
+    example: '01747162231',
   })
   phone: string;
 
-  @Column({ length: 100, unique: true })
+  @Column({ length: 100 })
   @ApiProperty({
     description: 'The reply of the ask reply',
-    example: 'Ask realy',
+    example: 'amirul@gmail.com',
   })
   email: string;
 
   @Column({ length: 100, nullable: true })
   @ApiProperty({
     description: 'The reply of the ask reply',
-    example: 'Ask realy',
+    example: 'Software Developer',
   })
   occupation: string;
 
   @Column({ length: 100, nullable: true })
   @ApiProperty({
     description: 'The reply of the ask reply',
-    example: 'Ask realy',
+    example: 'Mirpur',
   })
   location: string;
 
   @Column({ length: 100, nullable: true })
   @ApiProperty({
     description: 'The reply of the ask reply',
-    example: 'Ask realy',
+    example: 'Aa@123',
   })
   password: string;
 
@@ -81,14 +81,14 @@ export class User {
   @Column({ type: 'enum', enum: ['male', 'female'], default: 'male' })
   @ApiProperty({
     description: 'The reply of the ask reply',
-    example: 'Ask realy',
+    example: 'male/female',
   })
   gender: 'male' | 'female';
 
   @Column({ type: 'boolean', default: true })
   @ApiProperty({
     description: 'The reply of the ask reply',
-    example: 'Ask realy',
+    example: 'true/false',
   })
   isActive: boolean;
 }
