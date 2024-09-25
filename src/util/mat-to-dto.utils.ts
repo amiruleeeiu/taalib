@@ -8,10 +8,10 @@ export function MapToDto<T>(
   if (Array.isArray(data)) {
     return plainToInstance(dtoClass, data, {
       excludeExtraneousValues: true,
-    });
+    }) as T[];
   }
 
   return plainToInstance(dtoClass, [data], {
     excludeExtraneousValues: true,
-  })[0];
+  })[0] as T;
 }

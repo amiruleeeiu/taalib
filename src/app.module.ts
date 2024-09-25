@@ -63,6 +63,7 @@ import { UserService } from './services/user.service';
         UserExam,
       ], // List your entities here
       synchronize: true, // Automatically synchroniz
+      // namingStrategy:NamingStrategyInterface
     }),
     TypeOrmModule.forFeature([
       User,

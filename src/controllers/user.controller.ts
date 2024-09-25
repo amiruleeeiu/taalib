@@ -38,10 +38,12 @@ export class UserController {
   @HttpCode(HttpStatus.CREATED)
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   async createUser(@Body() createUserDto: CreateUserDto) {
-    const user = new User();
-    Object.assign(user, createUserDto);
+    // const user = new User();
+    // Object.assign(user, createUserDto);
 
-    const result = this.userService.create(user);
+    const result = this.userService.create(
+      MapToDto(User, createUserDto) as User,
+    );
 
     return MapToDto(UserDto, result) as UserDto;
   }

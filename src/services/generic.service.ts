@@ -7,7 +7,6 @@ import {
 } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
-// Define a base entity interface with an id property
 interface BaseEntity {
   id: number | string;
 }

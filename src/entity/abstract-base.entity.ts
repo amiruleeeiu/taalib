@@ -18,7 +18,7 @@ export abstract class AbstractBaseEntity {
   @UpdateDateColumn({ type: 'timestamptz' })
   updatedAt: Date;
 
-  @VersionColumn()
+  @VersionColumn({ default: 1 })
   version: number;
 
   @ManyToOne(() => User, { nullable: true })
